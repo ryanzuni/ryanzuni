@@ -15,7 +15,7 @@
                'id' => (string) Str::uuid(),
                'name' => 'Admin User',
                'email' => 'admin@example.com',
-               'password' => Hash::make('password123'),
+               'password' => Hash::make('123'),
                'role' => 'admin',
                'status' => true,
            ]);
