@@ -16,7 +16,9 @@
 
 ---
 
-⚙️ Contoh File .env.example
+## 📁 .env Example
+
+```env
 APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=
