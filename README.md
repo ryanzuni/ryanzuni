@@ -85,7 +85,6 @@ Karena adanya kendala dalam integrasi autentikasi token (Sanctum), sistem dibang
 ## 🚪 Simulasi Login
 
 Tidak menggunakan autentikasi token atau sesi. Simulasi login dilakukan dengan memilih peran dari dropdown **"Login sebagai:"** di halaman dashboard. Hak akses akan langsung menyesuaikan sesuai role yang dipilih.
-Akses file `public/frontend/dashboard.html` langsung via browser:
-
-   ```
-   http://localhost:8000/frontend/index.html
+Akses file `http://localhost:8000/frontend/index.html` langsung via browser:
+   
+**TERIMA KASIH, MOHON MAAF JIKA TIDAK SESUAI DAN SISTEM MASIH BANYAK KURANGNYA**
