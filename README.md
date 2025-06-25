@@ -11,6 +11,13 @@
 
 ---
 
+📷 Screenshot Tampilan
+![alt text](image-1.png)
+
+![alt text](image.png)
+
+---
+
 ## 📌 Deskripsi Proyek
 
 Proyek ini merupakan sistem **Manajemen Tugas** dengan tampilan dashboard interaktif berbasis **Laravel 10 (Backend)** dan **Vanilla JavaScript + HTML + Bootstrap (Frontend)**. Sistem ini menerapkan fitur kontrol akses berbasis peran (role-based permission) untuk tiga jenis pengguna: **Admin**, **Manager**, dan **Staff**.
