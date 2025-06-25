@@ -12,9 +12,27 @@
 ---
 
 📷 Screenshot Tampilan
-![alt text](image-1.png)
+![alt text](image-1.png) || ![alt text](image.png)
 
-![alt text](image.png)
+---
+
+⚙️ Contoh File .env.example
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+LOG_CHANNEL=stack
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
 
 ---
 
