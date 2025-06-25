@@ -15,7 +15,7 @@
 
 Proyek ini merupakan sistem **Manajemen Tugas** dengan tampilan dashboard interaktif berbasis **Laravel 10 (Backend)** dan **Vanilla JavaScript + HTML + Bootstrap (Frontend)**. Sistem ini menerapkan fitur kontrol akses berbasis peran (role-based permission) untuk tiga jenis pengguna: **Admin**, **Manager**, dan **Staff**.
 
-Karena adanya kendala dalam integrasi autentikasi token (Sanctum), sistem dibangun agar **tidak memerlukan proses login**. Pengguna cukup memilih peran dari dropdown dan sistem akan menyesuaikan hak akses secara otomatis di tampilan dashboard. Seluruh operasi CRUD (Create, Read, Update, Delete) langsung terhubung ke **TaskController Laravel**, tanpa menggunakan blade atau token API. Sistem tetap fungsional dan meniru alur kerja seperti aplikasi profesional dengan UI yang bersih dan responsif.
+Karena adanya kendala dalam integrasi autentikasi token (Sanctum), sistem dibangun agar **tidak memerlukan proses login**. Pengguna cukup memilih peran dari dropdown dan sistem akan menyesuaikan hak akses secara otomatis di tampilan dashboard. Seluruh operasi CRUD (Create, Read, Update, Delete) langsung terhubung ke **TaskController Laravel**, tanpa menggunakan blade atau token API. Sistem tetap fungsional dan meniru alur kerja seperti aplikasi profesional dengan UI yang bersih dan responsif, dan sistem ini bisa dikembangkan lebih lanjut.
 
 ---
 
@@ -27,7 +27,7 @@ Karena adanya kendala dalam integrasi autentikasi token (Sanctum), sistem dibang
 * Filter tampilan tugas sesuai peran
 * Tombol **Edit** dan **Delete** muncul sesuai izin akses
 * Logout simulasi
-* Tanpa login — cukup pilih role
+* Tanpa login cukup pilih role
 
 ---
 
