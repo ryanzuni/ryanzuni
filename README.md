@@ -11,15 +11,6 @@
 
 ---
 
-Tentu! Berikut versi **README** dalam bahasa Indonesia yang sudah mencakup:
-
-✅ Deskripsi menarik
-✅ Step-by-step instalasi & penggunaan
-✅ Penjelasan simulasi role tanpa login
-✅ Struktur permission
-
----
-
 ## 📌 Deskripsi Proyek
 
 Proyek ini merupakan sistem **Manajemen Tugas** dengan tampilan dashboard interaktif berbasis **Laravel 10 (Backend)** dan **Vanilla JavaScript + HTML + Bootstrap (Frontend)**. Sistem ini menerapkan fitur kontrol akses berbasis peran (role-based permission) untuk tiga jenis pengguna: **Admin**, **Manager**, dan **Staff**.
