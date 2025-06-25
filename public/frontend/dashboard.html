@@ -25,21 +25,21 @@
 <body>
   <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h4 class="fw-bold">Dashboard Tugas</h4>
-      <div class="d-flex align-items-center gap-3">
-        <label for="roleSelector" class="form-label mb-0">Login sebagai:</label>
+      <h4 class="fw-bold">📋 Dashboard Tugas</h4>
+      <div class="d-flex align-items-center gap-2">
+        <label for="roleSelector" class="form-label me-2">Login sebagai:</label>
         <select id="roleSelector" class="form-select w-auto">
           <option value="admin">Admin</option>
           <option value="manager">Manager</option>
           <option value="staff">Staff</option>
         </select>
-        <a href="/frontend/index.html" class="btn btn-outline-danger btn-sm">Logout</a>
+        <button class="btn btn-outline-danger btn-sm" onclick="logout()">Logout</button>
       </div>
     </div>
 
     <div class="card mb-4">
       <div class="card-body">
-        <h5 class="mb-3">Buat Tugas Baru</h5>
+        <h5 class="mb-3">➕ Buat Tugas Baru</h5>
         <form id="createTaskForm">
           <div class="row g-3 align-items-end">
             <div class="col-md-2">
@@ -88,66 +88,54 @@
       role: "admin"
     };
 
+    const localStorageKey = "taskData";
+
     document.getElementById('roleSelector').value = currentUser.role;
     document.getElementById('roleSelector').addEventListener('change', (e) => {
       currentUser.role = e.target.value;
-      fetchTasks();
+      renderTasks();
     });
 
-    async function fetchTasks() {
-      try {
-        const res = await fetch('/api/tasks');
-        if (!res.ok) throw new Error('Gagal ambil data');
-        const data = await res.json();
-        renderTasks(data);
-      } catch (err) {
-        console.warn('Gagal memuat data dari server:', err);
-      }
+    document.getElementById('createTaskForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const task = {
+        id: crypto.randomUUID(),
+        name: document.getElementById('taskName').value,
+        description: document.getElementById('taskDesc').value,
+        status: document.getElementById('taskStatus').value,
+        due_date: document.getElementById('dueDate').value,
+        created_by: currentUser.id,
+        assigned_to_role: document.getElementById('taskRole').value,
+      };
+
+      const tasks = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+      tasks.push(task);
+      localStorage.setItem(localStorageKey, JSON.stringify(tasks));
+      renderTasks();
+      e.target.reset();
+    });
+
+    function deleteTask(id) {
+      const tasks = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+      const updated = tasks.filter(task => task.id !== id);
+      localStorage.setItem(localStorageKey, JSON.stringify(updated));
+      renderTasks();
     }
 
-    async function createTask(task) {
-      try {
-        const res = await fetch('/api/tasks', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(task)
-        });
-        if (!res.ok) throw new Error('Gagal menambah tugas');
-        fetchTasks();
-      } catch (err) {
-        alert('Error: ' + err.message);
-      }
+    function fillForm(task) {
+      document.getElementById('taskRole').value = task.assigned_to_role;
+      document.getElementById('taskName').value = task.name;
+      document.getElementById('taskDesc').value = task.description;
+      document.getElementById('taskStatus').value = task.status;
+      document.getElementById('dueDate').value = task.due_date;
+      deleteTask(task.id);
     }
 
-    async function deleteTask(id) {
-      try {
-        const res = await fetch(`/api/tasks/${id}`, {
-          method: 'DELETE'
-        });
-        if (!res.ok) throw new Error('Gagal menghapus tugas');
-        fetchTasks();
-      } catch (err) {
-        alert('Error: ' + err.message);
-      }
-    }
-
-    async function updateTask(id, updated) {
-      try {
-        const res = await fetch(`/api/tasks/${id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updated)
-        });
-        if (!res.ok) throw new Error('Gagal memperbarui tugas');
-        fetchTasks();
-      } catch (err) {
-        alert('Error: ' + err.message);
-      }
-    }
-
-    function renderTasks(tasks) {
+    function renderTasks() {
       const container = document.getElementById('taskList');
       container.innerHTML = '';
+
+      const tasks = JSON.parse(localStorage.getItem(localStorageKey)) || [];
 
       const filtered = tasks.filter(task => {
         if (currentUser.role === 'admin') return true;
@@ -163,7 +151,7 @@
           done: 'success'
         }[task.status] || 'secondary';
 
-        const roleTag = task.assigned_to_role || task.role || 'UNKNOWN';
+        const roleTag = task.assigned_to_role || 'UNKNOWN';
         const canManage = (currentUser.role === 'admin') ||
                           (currentUser.role === 'manager' && roleTag === 'staff') ||
                           (currentUser.role === 'staff' && task.created_by === currentUser.id);
@@ -193,31 +181,13 @@
       });
     }
 
-    function fillForm(task) {
-      document.getElementById('taskRole').value = task.assigned_to_role;
-      document.getElementById('taskName').value = task.name;
-      document.getElementById('taskDesc').value = task.description;
-      document.getElementById('taskStatus').value = task.status;
-      document.getElementById('dueDate').value = task.due_date;
-      deleteTask(task.id);
+    function logout() {
+      if (confirm("Yakin ingin logout?")) {
+        window.location.href = "index.html";
+      }
     }
 
-    document.getElementById('createTaskForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const task = {
-        name: document.getElementById('taskName').value,
-        description: document.getElementById('taskDesc').value,
-        status: document.getElementById('taskStatus').value,
-        due_date: document.getElementById('dueDate').value,
-        created_by: currentUser.id,
-        assigned_to_role: document.getElementById('taskRole').value,
-        role: document.getElementById('taskRole').value
-      };
-      createTask(task);
-      e.target.reset();
-    });
-
-    fetchTasks();
+    renderTasks();
   </script>
 </body>
 </html>
